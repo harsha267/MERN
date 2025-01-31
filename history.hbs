@@ -1,0 +1,28 @@
+<div class="container">
+    <h1>Habit History for {{date}}</h1>
+    
+    <div class="habits-list">
+        {{#each habits}}
+        <div class="habit-item">
+            <div class="habit-info">
+                <span class="habit-name">{{this.name}}</span>
+                <span class="habit-scheduled-time">Scheduled: {{this.time}}</span>
+                {{#if this.completed}}
+                    {{#if this.completedAt}}
+                    <span class="habit-completed-time">Completed at: {{formatTime this.completedAt}}</span>
+                    {{/if}}
+                {{/if}}
+            </div>
+            <span class="habit-status {{#if this.completed}}completed{{/if}}">
+                {{#if this.completed}}
+                ✓ Completed
+                {{else}}
+                ✗ Not Completed
+                {{/if}}
+            </span>
+        </div>
+        {{/each}}
+    </div>
+    
+    <a href="/" class="back-button">Back to Today</a>
+</div>

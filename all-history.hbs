@@ -1,0 +1,67 @@
+<div class="container">
+    <h1>All Habit History</h1>
+    
+    {{#if hasHabits}}
+        {{#if hasHistory}}
+            {{#each historyByDate}}
+            <div class="history-section">
+                <h2 class="date-header">{{this.date}}</h2>
+                <div class="habits-list">
+                    {{#each habits}}
+                    <div class="habit-item">
+                        <div class="habit-info">
+                            <span class="habit-name">{{this.name}}</span>
+                            <span class="habit-scheduled-time">Scheduled: {{this.time}}</span>
+                            {{#if this.completed}}
+                                {{#if this.completedAt}}
+                                <span class="habit-completed-time">Completed at: {{formatTime this.completedAt}}</span>
+                                {{/if}}
+                            {{/if}}
+                        </div>
+                        <span class="habit-status {{#if this.completed}}completed{{/if}}">
+                            {{#if ../noHistory}}
+                                Not tracked yet
+                            {{else}}
+                                {{#if this.completed}}
+                                ✓ Completed
+                                {{else}}
+                                ✗ Not Completed
+                                {{/if}}
+                            {{/if}}
+                        </span>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            {{/each}}
+        {{else}}
+            <div class="message-box info">
+                <p>You haven't tracked any habits yet! Try marking some habits as completed or not completed on the main page.</p>
+                <p>Here are your current habits:</p>
+            </div>
+            {{#each historyByDate}}
+            <div class="history-section">
+                <h2 class="date-header">{{this.date}} (Current Habits)</h2>
+                <div class="habits-list">
+                    {{#each habits}}
+                    <div class="habit-item">
+                        <div class="habit-info">
+                            <span class="habit-name">{{this.name}}</span>
+                            <span class="habit-scheduled-time">Scheduled: {{this.time}}</span>
+                        </div>
+                        <span class="habit-status">Not tracked yet</span>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            {{/each}}
+        {{/if}}
+    {{else}}
+        <div class="message-box info">
+            <p>You haven't created any habits yet!</p>
+            <p>Go back to the main page and add some habits to start tracking.</p>
+        </div>
+    {{/if}}
+    
+    <a href="/" class="back-button">Back to Today</a>
+</div>

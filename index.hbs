@@ -1,0 +1,51 @@
+<div class="container">
+    <h1>Welcome {{user.username}}'s Habit Tracker</h1>
+    
+    <div class="nav-links">
+        <button onclick="window.location.href='/history/yesterday'" class="history-button">View Yesterday's History</button>
+        <button onclick="window.location.href='/history/all'" class="history-button">View All History</button>
+    </div>
+    
+    {{#if error}}
+    <div class="error">
+        {{error}}
+    </div>
+    {{/if}}
+
+    <form action="/habits/add" method="POST" class="habit-form">
+        <div class="form-group">
+            <input type="text" name="name" placeholder="Enter a new habit" required>
+            <input type="time" name="time" required>
+        </div>
+        <button type="submit">Add Habit</button>
+    </form>
+
+    <ul class="habits-list">
+        {{#each habits}}
+        <li class="habit-item">
+            <div class="habit-info">
+                <span class="habit-name">{{this.name}}</span>
+                <span class="habit-time">{{this.time}}</span>
+            </div>
+            <div class="habit-actions">
+                <form action="/habits/toggle/{{this._id}}" method="POST" class="toggle-form">
+                    <button type="submit" class="toggle-button {{#if this.completed}}completed{{/if}}">
+                        {{#if this.completed}}
+                        ✓ Done
+                        {{else}}
+                        ○ Todo
+                        {{/if}}
+                    </button>
+                </form>
+                <form action="/habits/delete/{{this._id}}" method="POST" class="delete-form">
+                    <button type="submit" class="delete-button">×</button>
+                </form>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+
+    <form action="/logout" method="GET" style="margin-top: 20px;">
+        <button type="submit">Logout</button>
+    </form>
+</div>

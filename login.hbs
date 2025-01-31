@@ -1,0 +1,16 @@
+<div class="container auth-container">
+    <h1>Welcome Back</h1>
+    
+    {{#if error}}
+    <div class="error">
+        {{error}}
+    </div>
+    {{/if}}
+
+    <form action="/login" method="POST">
+        <input type="text" name="username" placeholder="Enter your username" required>
+        <input type="password" name="password" placeholder="Enter your password" required>
+        <button type="submit">Sign In</button>
+    </form>
+    <p>Don't have an account? <a href="/register">Create one now</a></p>
+</div>
